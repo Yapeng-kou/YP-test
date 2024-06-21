@@ -1,4 +1,4 @@
---XXAP1344
+--XXAP1344 test02
 --Invoice Register Report
 --Eleen Hu
 xxap/12.0.0/patch/115/admin/US/XXAP1344_Concurrent_Program.ldt
@@ -6,7 +6,7 @@ xxap/12.0.0/patch/115/admin/US/XXAP3670_RQGNAME_I.ldt
 xxap/12.0.0/patch/115/admin/US/XXAP3670_RQGNAME_M.ldt
 xxap/12.0.0/patch/115/publisher/defs/XXAP1427_xdo_ds.ldt
 xxap/12.0.0/patch/115/publisher/defs/XXAP1841_1_xdo_ds.ldt
-xxap/12.0.0/reports/US/XXAP1344.rex -->转RDF文件
+xxap/12.0.0/reports/US/XXAP1344.rex -->转RDF锟侥硷拷
 xxxtr/12.0.0/patch/115/defs/XXXTR1350_xdo_ds.ldt
 --
 xxar/12.0.0/patch/115/admin/US/XXAR1967_Request_group_name-2.ldt
