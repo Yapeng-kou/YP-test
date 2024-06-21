@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 --XXAP1344 test01
+=======
+--XXAP1344 test02
+--XXAP1344 test01
+>>>>>>> testTwo
 --Invoice Register Report
 --Eleen Hu
 xxap/12.0.0/patch/115/admin/US/XXAP1344_Concurrent_Program.ldt
