@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- $Header: DATA_TEMPLATE_XXAP_XXAP1789.XML 115.0 2012/12/06 08:20:25 xdouser noship $ -->
+<!-- dbdrv: none -->
+
+<dataTemplate name="XXAP1789" defaultPackage="XXAP_MISSING_ACCRUAL_PKG" version="1.0">
+<properties>
+  <property name="xml_tag_case" value="upper" /> 
+  <property name="debug_mode" value="off" />
+ </properties>
+
+<parameters>
+	<parameter name="p_ledger_id" dataType = "number"/>
+	<parameter name="p_num_days" dataType = "number"/>
+ </parameters>
+  <lexicals /> 
+<dataQuery>
+<sqlStatement name="AADQ">
+<![CDATA[SELECT gcc.segment1 || '.' || gcc.segment2 || '.' || gcc.segment3 || '.' ||
+       gcc.segment4 || '.' || gcc.segment5 || '.' || gcc.segment6 || '.' ||
+       gcc.segment7 || '.' || gcc.segment8 as accrual_acc
+  FROM gl_code_combinations gcc, gl_ledgers gl
+ WHERE gcc.chart_of_accounts_id = gl.chart_of_accounts_id
+   AND gl.ledger_id = :p_ledger_id
+   AND EXISTS
+        (SELECT 1
+		 --start-Modified for SEP-5733 Defect#824, Pankaj K, 15-Jan-2020
+		  FROM  XXAP.XXAP1789_MISSING_ACCRUAL_GTT  xmag
+		  where xmag.Code_Combination_Id = gcc.code_combination_id
+				 
+				 /*FROM xla_ae_lines xal
+				 WHERE xal.accounting_class_code = 'ACCRUAL'
+				   AND xal.ledger_id = :p_ledger_id
+				   AND xal.code_combination_id = gcc.code_combination_id
+				   AND xal.application_id IN (200, 707)
+				   AND xal.accounting_date > '30-MAR-2013'
+				  */
+		  --start-Modification for SEP-5733 Defect#824, Pankaj K, 15-Jan-2020
+         )
+   AND NOT EXISTS &P_WHERE_OU
+ ]]> 
+  </sqlStatement>
+  </dataQuery>
+  <dataTrigger name="beforeReportTrigger" source="XXAP_MISSING_ACCRUAL_PKG.before_report" /> 
+<dataStructure>
+    <element name="P_WHERE_OU" dataType="varchar2" value="XXAP_MISSING_ACCRUAL_PKG.P_WHERE_OU"/>
+	<group name="G_AADQ" dataType="varchar2" source="AADQ">  
+		<element name="ACCRUAL_ACCOUNT" dataType="varchar2" value="accrual_acc"/>
+	</group>
+</dataStructure>
+</dataTemplate>
+
+
+
+
+

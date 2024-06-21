@@ -1,0 +1,24 @@
+--rice id:XXAP1789
+--name:Missing Accrual Account Report
+--Kiko Xiong
+xxap/12.0.0/patch/115/admin/US/XXAP1789MAAR_concurrent_program.ldt
+xxap/12.0.0/patch/115/publisher/defs/XXAP1789MAAR.xml
+xxap/12.0.0/patch/115/publisher/defs/XXAP1789MAAR_data_template.ldt
+xxap/12.0.0/patch/115/sql/XXAP1789_MISSING_ACCRUAL_GTT.sql
+xxap/12.0.0/patch/115/sql/XXAP_MISSING_ACCRUAL_PKG.pkb
+xxap/12.0.0/patch/115/sql/XXAP_MISSING_ACCRUAL_PKG.pks
+
+xxap/12.0.0/patch/115/admin/US/XXAP3670_RQGNAME_M.ldt
+xxap/12.0.0/patch/115/publisher/defs/XXAP1427_xdo_ds.ldt
+xxap/12.0.0/patch/115/publisher/defs/XXAP1841_1_xdo_ds.ldt
+xxar/12.0.0/patch/115/admin/US/XXAR1967_Request_group_name-2.ldt
+xxar/12.0.0/patch/115/publisher/defs/XXAR1453_xdo_ds.ldt
+xxcst/12.0.0/patch/115/publisher/defs/XXCST1685_xdo_ds.ldt
+xxgl/12.0.0/patch/115/publisher/defs/XXGL1818_xdo_ds.ldt
+xxau/12.0.0/patch/115/admin/US/XXAU1003_PURGE_concurrent_program.ldt
+xxau/12.0.0/patch/115/admin/US/XXAU1003_PURGE_UNRESTRICTED_Program.ldt
+--新增package
+XXAU_ERROR_PURGE_PKG
+--新增RTF模版
+XXAP1789_MISS_ACCRUAL_REPORT.RTF
+
