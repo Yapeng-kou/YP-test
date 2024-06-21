@@ -1,0 +1,20 @@
+--需要提前D
+--rice_id:XXPA1441
+--name；Modify PO/Req/AP Account Generator for project related purchases
+--Rico
+--Sowmya
+
+xxpa/12.0.0/patch/115/sql/XXPA_ACC_GEN_WF_CUSTOM_PKG.pks 
+xxpa/12.0.0/patch/115/sql/XXPA_ACC_GEN_WF_CUSTOM_PKG.pkb --修改过
+xxpa/12.0.0/patch/115/sql/xxap_workflow_pkg.pks
+xxpa/12.0.0/patch/115/sql/xxap_workflow_pkg.pkb
+--
+xxpa/12.0.0/patch/115/admin/XXPA_POWFPOAG.wft UPGRADE
+xxpa/12.0.0/patch/115/admin/XXPA_POWFRQAG.wft UPGRADE
+xxpa/12.0.0/patch/115/admin/XXPA_PAAPINVW.wft UPGRADE
+xxpa/12.0.0/patch/115/admin/APINVAPR.wft UPGRADE
+xxap/12.0.0/patch/115/admin/US/XXAP1441_LINE_Form_Personalization.ldt $FND_TOP/patch/115/import/afffload.lct CUSTOM_MODE=FORCE
+xxap/12.0.0/patch/115/admin/US/XXAP1441_DIST_Form_Personalization.ldt $FND_TOP/patch/115/import/afffload.lct CUSTOM_MODE=FORCE
+--rex -> rdf 
+--已找到对应的rdf文件
+xxcst/12.0.0/reports/US/XXCST1741.rex

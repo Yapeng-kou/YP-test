@@ -1,0 +1,208 @@
+#  *                                         - COPYRIGHT NOTICE --                                                
+#  *********************************************************************************************************** 
+#  ***********************************************************************************************************
+#  * Application:   XXCTQ Custom Application                                                                 *
+#  * Program Name:  XXCTQ_PA4432.prog                                                                        *
+#  * Version #:     1.0                                                                                      *
+#  * Utility:                                                                                                *
+#  * Description:   Script to load data into staging tables from flat file using SQL Loader                  *    
+#  *                                                                                                         *                      
+#  * Keyword Tracking:                                                                                       *
+#  *                                                                                                         *
+#  *                                                                                                         *
+#  * $Header: $                                                                                              *
+#  * $Change History$ (*ALL VERSIONS*)                                                                       *  
+#  * Change History:                                                                                         *
+#  * ==============================================================================                     *
+#  *  Date          | Name                      | Remarks                                                    *
+#  * ==============================================================================                          *
+#  * 25-SEP-2023    Sowmya Shetty     		    | CR25375 - Initial Creation                                 * 
+#  ***********************************************************************************************************
+#!/bin/ksh
+#export NLS_LANG=AMERICAN_AMERICA.WE8ISO8859P1
+echo "Start Date : `date +%Y/%m/%d`"
+echo "Start Time : `date +%H:%M:%S`"
+user_id=$2
+echo "user_id = $user_id"
+user_name=$3
+echo "user_name = $user_name"
+request_id=$4
+echo "request_id = $request_id"
+output='o'$request_id'.out'
+FILE_PATH=$5
+echo "FILE_PATH = $FILE_PATH"
+file_1=$6
+receiver=$7
+ext=".ctl"
+c_ctl1="XXCTQ_ATTCH_"${request_id}${ext}
+echo "$c_ctl1"
+#******************************************************************************** 
+#                      Validate and Process Data Files
+#******************************************************************************** 
+if [ "${file_1}" != "" ] ; then
+#--- Validating Column Count
+CSVcnt1=`awk 'BEGIN{FS="~"}END{print NF}' $FILE_PATH/"${file_1}"`
+echo "Project and attchment Data File Column Count = $CSVcnt1"
+#if [ "${CSVcnt1}" != "14" ] ; then
+if [ "${CSVcnt1}" != "8" ] ; then
+echo "Number of columns mismatch in Project Attachment data file, "$file_1
+mv -f $FILE_PATH/"${file_1}" $FILE_PATH'/XXCTQ_ARCH'
+exit 1
+fi
+#--- Processing Data File
+#awk -F~ '{$(NF+1)='$request_id';}1' OFS=~ $FILE_PATH/$file_1 > $FILE_PATH/AR_Unapplied_Rec'_'$request_id'.csv'
+mv $FILE_PATH/"${file_1}" $FILE_PATH/PA_Attach_Rec'_'$request_id'.csv'
+
+#Commented on 02-May-2016 for RT#6575051 by Tuhin D  Start
+#encoding=$(file -bi $FILE_PATH/AR_Unapplied_Rec'_'$request_id'.csv' | sed -e 's/.*[ ]charset=//')
+#echo "encode"
+#echo $encoding
+#if [ "${encoding}" = "utf-16" ] ; then
+#       echo "Unicode file-type. Use CHARACTERSET UTF16\nBYTEORDER LITTLE"
+#        sed 's/XXXXXX/'"$request_id"'/;s/CHARACTERSET/'"CHARACTERSET UTF16\nBYTEORDER LITTLE"'/' $XXCTQ_TOP/bin/XXCTQ_RECEPT_CTL.ctl >  $XXCTQ_TOP/bin/"$c_ctl1"                 
+	
+#    else
+	
+#	    if [ "${encoding}" = "utf-8" ] ; then
+#        echo "Unicode file-type. Use CHARACTERSET UTF8\nBYTEORDER LITTLE"
+#        sed 's/XXXXXX/'"$request_id"'/;s/CHARACTERSET/'"CHARACTERSET UTF8\nBYTEORDER LITTLE"'/' $XXCTQ_TOP/bin/XXCTQ_RECEPT_CTL.ctl >  $XXCTQ_TOP/bin/"$c_ctl1"                 
+	
+#	    else
+#        echo "Non-unicode file-type. Use CHARACTERSET WE8ISO8859P1"
+#        sed 's/XXXXXX/'"$request_id"'/;s/CHARACTERSET/'"CHARACTERSET WE8ISO8859P1"'/' $XXCTQ_TOP/bin/XXCTQ_RECEPT_CTL.ctl >  $XXCTQ_TOP/bin/"$c_ctl1"
+           
+#       fi
+#	fi
+#Commented on 02-May-2016 for RT#6575051 by Tuhin D End
+
+sh $XXCTQ_TOP/bin/XXCTQ_CONV_ENCODING.prog "$FILE_PATH/PA_Attach_Rec_$request_id.csv" $request_id XXCTQ_PA4432_LOADER "$c_ctl1"
+
+data_file_1=$FILE_PATH/PA_Attach_Rec'_'$request_id'.csv'
+    #ctl_file1='XXCTQ_RECEPT_CTL.ctl'
+    table_name1='XXPA.XXPA_PROJECT_ATTACHMENTS_STG'
+    ldr_type1='Project-Attachments'
+    log_prefix1='PA_Attach_Rec_'$request_id
+fi
+#******************************************************************************** 
+#                       Insert into File Load Tracker Table
+#******************************************************************************** 
+sqlplus -s $FCP_LOGIN << EOF_SQL
+WHENEVER SQLERROR EXIT 1
+        set serveroutput on
+        variable batch_id number
+        variable ret_code number
+            BEGIN
+            INSERT INTO XXCTQ.XXCTQ_FILE_LOAD_TRACKER(REQUEST_ID,BATCH_ID,FILE_NAME,LOADER_NAME,RECORD_COUNT,SUCCESS_COUNT,
+                                                ERROR_COUNT,STATUS,CREATION_DATE,CREATED_BY,LAST_UPDATE_DATE,LAST_UPDATED_BY)
+                    VALUES('$request_id','$request_id',NVL('$file_1','File Not Loaded'),NVL('$ldr_type1','File Not Loaded'),0,0,0,'Y',sysdate,'$user_id',sysdate,'$user_id');
+            COMMIT;
+            if sql%rowcount > 0 then
+                 :ret_code :=0;        
+             else
+                 :ret_code :=3;
+             end if;                                
+            exception
+                     when no_data_found then
+                dbms_output.put_line('Error in Insert '||sqlerrm);
+                             :ret_code :=2;
+                             rollback;
+                     when others then
+                          dbms_output.put_line('Error in Insert '||sqlerrm);
+                             :ret_code :=1;
+                             rollback;
+            END;
+/
+exit :ret_code;
+EOF_SQL
+#******************************************************************************** 
+#                        Executing SQL Loader Programs
+#******************************************************************************** 
+if [ "${file_1}" != "" ] ; then
+echo "Project Attachment data file 1, "$file_1
+sqlldr userid=$FCP_LOGIN control=$XXCTQ_TOP/bin/"$c_ctl1" data=$data_file_1 log=$XXCTQ_TOP/log/$log_prefix1.log bad=$XXCTQ_TOP/log/$log_prefix1.bad discard=$XXCTQ_TOP/log/$log_prefix1.discard
+rm $XXCTQ_TOP/bin/"$c_ctl1"
+echo "Project Attachment data file 1, "$file_2
+retcode=`echo $?`
+echo "retcode = $retcode"
+echo "****************************************************************************************"
+echo "                         Project Attachement Record Upload Status                       "
+echo "----------------------------------------------------------------------------------------"
+RecordsLoaded1=$(grep 'successfully loaded.' $XXCTQ_TOP/log/$log_prefix1.log | awk '{print $1}')
+echo "Total Records Successfully Loaded: $RecordsLoaded1"
+RecordsErrored1=$(grep 'not loaded due to data errors' $XXCTQ_TOP/log/$log_prefix1.log | awk '{print $1}')
+echo "Total Records Failed: $RecordsErrored1"
+RecordsRead1=`expr $RecordsLoaded1 + $RecordsErrored1`
+echo "Total Records Read: $RecordsRead1"
+echo "****************************************************************************************"
+mv -f $FILE_PATH/PA_Attach_Rec'_'$request_id'.csv' $FILE_PATH'/XXCTQ_ARCH'
+#if [ "${retcode}" = 0 ] ; then
+#mv -f $FILE_PATH/$file_1 $FILE_PATH'/XXCTQ_ARCH'
+#mv -f $FILE_PATH/AR_Unapplied_Rec'_'$request_id'.csv' $FILE_PATH'/XXCTQ_ARCH'
+#fi
+#if [ "${retcode}" != 0 ] ; then
+#mv -f $FILE_PATH/AR_Unapplied_Rec'_'$request_id'.csv' $FILE_PATH'/XXCTQ_ARCH'
+#fi
+fi
+#******************************************************************************** 
+#                      Updating File Tracker and CTQ Tables
+#******************************************************************************** 
+sqlplus -s $FCP_LOGIN << EOF_SQL
+     WHENEVER SQLERROR EXIT 1
+        set serveroutput on
+BEGIN
+        IF ('$file_1' is not null)
+        then
+        UPDATE XXCTQ.XXCTQ_FILE_LOAD_TRACKER
+        SET RECORD_COUNT = '$RecordsLoaded1' + '$RecordsErrored1',
+            SUCCESS_COUNT = '$RecordsLoaded1',
+            ERROR_COUNT = '$RecordsErrored1',
+            STATUS = DECODE('$RecordsLoaded1', 0, 'F', 'P'),
+            CREATION_DATE = sysdate,
+            CREATED_BY = '$user_id',
+            LAST_UPDATE_DATE = sysdate,
+            LAST_UPDATED_BY = '$user_id'
+        WHERE REQUEST_ID = $request_id
+        AND FILE_NAME like ('$file_1' || '%');
+        --
+        UPDATE 	XXPA.XXPA_PROJECT_ATTACHMENTS_STG
+           SET 	file_name = '$file_1',
+				CREATION_DATE = sysdate,
+				CREATED_BY = '$user_id',
+				LAST_UPDATE_DATE = sysdate,
+				LAST_UPDATED_BY = '$user_id'
+         WHERE 	batch_id = $request_id;
+        END IF;
+        --
+        COMMIT;
+        FND_FILE.PUT_LINE(FND_FILE.OUTPUT,'All records processed successfully.');
+exception
+                     when no_data_found then
+                dbms_output.put_line('Error in Update '||sqlerrm);
+                         --rollback;
+                     when others then
+                         --rollback;
+                dbms_output.put_line('Error in Update '||sqlerrm);
+END;
+/
+EOF_SQL
+#******************************************************************************** 
+#                         Sending Log Files by Mail
+#******************************************************************************** 
+cd $XXCTQ_TOP/log/
+if [ -s $log_prefix1.bad ]; then
+cat $log_prefix1.log $log_prefix1.bad >> $APPLCSF/out/$output
+fi
+if [ ! -s $APPLCSF/out/$output ]; then
+echo "Kindly refer the Concurrent log file for details." >> $APPLCSF/out/$output
+fi
+#echo "" | mail $receiver -s "XXCTQ AR Unapplied Receipts Loader - Request ID "$request_id < $APPLCSF/out/$output #commented for RT#8141171
+echo "" | mailx -s "Project attchment Loader - Request ID "$request_id $receiver < $APPLCSF/out/$output #added for RT#8141171
+
+echo "Finish Date : `date +%Y/%m/%d`"
+echo "Finish Time : `date +%H:%M:%S`"
+#******************************************************************************** 
+#                      Setting Program Completion Status
+#******************************************************************************** 
+if [ "${file_1}" != "" ] && [ "${retcode}" != 0 ] ; then
+exit 1
+fi

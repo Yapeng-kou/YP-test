@@ -1,0 +1,25 @@
+-- HEADER
+--   $Header: XXAP3863_XXAP3863_CST_APPO_RECON_BKP_N1_DRP.sql V1.0
+-- NAME
+--   XXAP3863_XXAP3863_CST_APPO_RECON_BKP_N1_DRP.sql - Delete INDEX
+-- DESCRIPTION
+--
+--   Drop XXAP3863_CST_APPO_RECON_BKP_N1
+DECLARE
+	lv_count NUMBER := 0;
+BEGIN
+	SELECT count(1)
+	  INTO lv_count
+	  FROM dba_objects
+	 WHERE object_name = 'XXAP3863_CST_APPO_RECON_BKP_N1'
+	   AND owner = 'XXAP'
+	   AND object_type = 'INDEX';
+	
+	IF lv_count > 0 THEN
+		EXECUTE immediate 'DROP INDEX XXAP.XXAP3863_CST_APPO_RECON_BKP_N1';
+	END IF;
+EXCEPTION
+	WHEN OTHERS THEN
+	NULL;
+END;
+/	

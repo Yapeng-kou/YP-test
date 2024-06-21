@@ -1,0 +1,12 @@
+--XXCST1741
+--Invoice Price Variance Report
+--Kiko Xiong
+xxcst/12.0.0/patch/115/publisher/templates/US/XXCST1741_template_source.rtf XXCST XXCST1741 TEMPLATE_SOURCE RTF en US Y
+xxcst/12.0.0/patch/115/admin/US/XXCST1741_concurrent_program.ldt $FND_TOP/patch/115/import/aflvmlu.lct CUSTOM_MODE=FORCE
+xxcst/12.0.0/reports/US/XXCST1741.rex
+xxcst/12.0.0/patch/115/sql/xxcst1741_ctx_api.pks APPS
+xxcst/12.0.0/patch/115/sql/xxcst1741_ctx_api.pkb APPS
+xxcst/12.0.0/patch/115/sql/XXCST1741_CTX.sql APPS
+--存在多版本，创建表名和文件名不一致
+xxcst/12.0.0/patch/115/sql/XXAP_INVOICE_PRICE_VAR_V.sql APPS
+xxcst/12.0.0/patch/115/admin/XXPA_POWFPOAG.wft

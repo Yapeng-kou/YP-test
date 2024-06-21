@@ -1,0 +1,10 @@
+--XXAR1118
+--Conversion of Unapplied Receipts  -AR
+--Raymond Li
+xxar/12.0.0/patch/115/admin/US/XXAR1118_AR_RECEIPT_CONV_concurrent_program.ldt $FND_TOP/patch/115/import/afffload.lct CUSTOM_MODE=FORCE
+xxar/12.0.0/patch/115/sql/XXAR_CASH_RCPT_CONV_PKG.pkb APPS
+xxar/12.0.0/patch/115/sql/XXAR_CASH_RCPT_CONV_PKG.pks APPS
+xxctq/12.0.0/bin/XXCTQ_RECEPT.prog 
+xxctq/12.0.0/bin/XXCTQ_RECEPT_CTL.ctl
+--新增对象
+XXCTQ_RECEPT_C_AR_RECEIPT.sql

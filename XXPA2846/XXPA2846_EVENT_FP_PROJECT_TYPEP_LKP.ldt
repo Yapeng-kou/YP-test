@@ -1,0 +1,373 @@
+# $Header$
+
+# dbdrv: exec fnd bin FNDLOAD bin &phase=daa+51 checkfile:~PROD:~PATH:~FILE &ui_apps 0 Y UPLOAD @FND:patch/115/import/aflvmlu.lct @~PROD:~PATH/~FILE
+LANGUAGE = "US"
+LDRCONFIG = "aflvmlu.lct 120.0.12010000.1"
+
+#Source Database IREBSPSL
+
+#RELEASE_NAME 12.1.3
+
+# -- Begin Entity Definitions -- 
+
+DEFINE FND_LOOKUP_TYPE
+  KEY   VIEW_APPSNAME                   VARCHAR2(50)
+  KEY   LOOKUP_TYPE                     VARCHAR2(30)
+  CTX   APPLICATION_SHORT_NAME          VARCHAR2(50)
+  BASE  CUSTOMIZATION_LEVEL             VARCHAR2(1)
+  CTX   OWNER                           VARCHAR2(4000)
+  BASE  LAST_UPDATE_DATE                VARCHAR2(10)
+  TRANS MEANING                         VARCHAR2(80)
+  TRANS DESCRIPTION                     VARCHAR2(240)
+
+  DEFINE FND_LOOKUP_VALUE
+    KEY   LOOKUP_CODE                     VARCHAR2(30)
+    BASE  ENABLED_FLAG                    VARCHAR2(1)
+    BASE  START_DATE_ACTIVE               VARCHAR2(10)
+    BASE  END_DATE_ACTIVE                 VARCHAR2(10)
+    BASE  TERRITORY_CODE                  VARCHAR2(2)
+    BASE  TAG                             VARCHAR2(150)
+    BASE  ATTRIBUTE_CATEGORY              VARCHAR2(30)
+    BASE  ATTRIBUTE1                      VARCHAR2(150)
+    BASE  ATTRIBUTE2                      VARCHAR2(150)
+    BASE  ATTRIBUTE3                      VARCHAR2(150)
+    BASE  ATTRIBUTE4                      VARCHAR2(150)
+    BASE  ATTRIBUTE5                      VARCHAR2(150)
+    BASE  ATTRIBUTE6                      VARCHAR2(150)
+    BASE  ATTRIBUTE7                      VARCHAR2(150)
+    BASE  ATTRIBUTE8                      VARCHAR2(150)
+    BASE  ATTRIBUTE9                      VARCHAR2(150)
+    BASE  ATTRIBUTE10                     VARCHAR2(150)
+    BASE  ATTRIBUTE11                     VARCHAR2(150)
+    BASE  ATTRIBUTE12                     VARCHAR2(150)
+    BASE  ATTRIBUTE13                     VARCHAR2(150)
+    BASE  ATTRIBUTE14                     VARCHAR2(150)
+    BASE  ATTRIBUTE15                     VARCHAR2(150)
+    CTX   OWNER                           VARCHAR2(4000)
+    BASE  LAST_UPDATE_DATE                VARCHAR2(10)
+    TRANS MEANING                         VARCHAR2(80)
+    TRANS DESCRIPTION                     VARCHAR2(240)
+  END FND_LOOKUP_VALUE
+END FND_LOOKUP_TYPE
+
+# -- End Entity Definitions -- 
+
+
+BEGIN FND_LOOKUP_TYPE "AU" "XXPA2846_EVENT_FP_PROJECT_TYPE"
+  APPLICATION_SHORT_NAME = "XXPA"
+  CUSTOMIZATION_LEVEL = "U"
+  OWNER = "CCBBMN"
+  LAST_UPDATE_DATE = "2015/09/11"
+  MEANING = "XXPA2846_EVENT_FP_PROJECT_TYPE"
+  DESCRIPTION =
+ "Lookup for Responsibility (Meaning) & Project Types (Description) where Revenue Amount will be non-editable and defaulted to 0 on Project Events."
+
+  BEGIN FND_LOOKUP_VALUE "IR_AT_5854_1_1172_SERVICES_PR"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "AT 5854 Services Project Administration"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_US_ITS_4_51625_SERVICE_PRO"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "US ITS Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_CA_HIB_1_1172_SERVICES_PR"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "CA HIB Services Project Administration"
+    DESCRIPTION = "Warranty"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_CA_HIB_4_51625_SERVICE_PRO"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "CA HIB Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_CH_CHF_1_1172_SERVICES_PR"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "CH CHF Services Project Administration"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_CH_CHF_4_51625_SERVICE_PRO"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "CH CHF Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_CL TRANE_4_51625_ SERVICE/P"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "CL Trane Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_CZ_5727_1_1172_SERVICES_PR"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "CZ 5727 Services Project Administration"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_CZ_5727_4_51625_SERVICE_PRO"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "CZ 5727 Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_DE_5843_1_1172_SERVICES_PR"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "DE 5843 Services Project Administration"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_DE_5843_4_51625_SERVICE_PRO"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "DE 5843 Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_FR_5803_1_1172_SERVICES_PR"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "FR 5803 Services Project Administration"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_FR_5803_4_51625_SERVICE_PRO"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "FR 5803 Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_HU_HUF_1_1172_SERVICES_PR"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "HU HUF Services Project Administration"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_HU_HUF_4_51625_SERVICE_PRO"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "HU HUF Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_IE_5863_1_1172_SERVICES_PR"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "IE 5863 Services Project Administration"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_IE_5863_4_51625_SERVICE_PRO"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "IE 5863 Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_IN INDUSTRIAL PRODUCTS_4_51"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING =
+ "IN Industrial Products Service Project Administration Supervisor"
+    DESCRIPTION = "Demo|Rental|Package Care|Operation and Maint|AMC|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_IN NARODA_4_51625_ SERVICE/"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "IN Naroda Service Project Administration Supervisor"
+    DESCRIPTION = "Demo|Rental|Package Care|Operation and Maint|AMC|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_NL_9516_1_1172_SERVICES_PR"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "NL 9516 Services Project Administration"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_NL_9516_4_51625_SERVICE_PRO"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "NL 9516 Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_PA_3_17118_CL TRANE SERVIC"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "CL Trane Service Project Administration"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_PA_3_17118_IN INDUSTRIAL P"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "IN Industrial Products Services Project Administration"
+    DESCRIPTION = "Demo|Rental|Package Care|Operation and Maint|AMC|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_PA_3_17118_IN NARODA SERVI"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "IN Naroda Services Project Administration"
+    DESCRIPTION = "Demo|Rental|Package Care|Operation and Maint|AMC|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_PA_3_17118_PR TRANE SERVIC"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "PR Trane Services Project Administration"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_PA_PAB_1_1172_SERVICES_PR"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "PA LRD Services Project Administration"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_PA_PAB_4_51625_SERVICE_PRO"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "PA LRD Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_PR TRANE_4_51625_ SERVICE/P"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "PR Trane Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_PT_5801_1_1172_SERVICES_PR"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "PT 5801 Services Project Administration"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_PT_5801_4_51625_SERVICE_PRO"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "PT 5801 Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_SK_5721_1_1172_SERVICES_PR"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "SK 5721 Services Project Administration"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_SK_5721_4_51625_SERVICE_PRO"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "SK 5721 Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_US_ITS_1_1172_SERVICES_PR"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "US ITS Services Project Administration"
+    DESCRIPTION = "Warranty"
+  END FND_LOOKUP_VALUE
+  
+  BEGIN FND_LOOKUP_VALUE "IR_AT_5854_4_51625_SERVICE_PRO"
+    ENABLED_FLAG = "Y"
+    START_DATE_ACTIVE = "2015/09/11"
+    OWNER = "CCBBMN"
+    LAST_UPDATE_DATE = "2015/09/11"
+    MEANING = "AT 5854 Service Project Administration Supervisor"
+    DESCRIPTION = "Warranty|Service Agreement|No Charge - Service|Contracting|"
+  END FND_LOOKUP_VALUE
+  
+END FND_LOOKUP_TYPE
+

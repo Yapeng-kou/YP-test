@@ -1,0 +1,19 @@
+--XXAP1492
+--GRNI Custom Report
+--Kiko Xiong
+xxap/12.0.0/patch/115/sql/xxap1492_create_gt_table.sql  --�ýű�ȱ���ֶ��ѷ���
+xxap/12.0.0/patch/115/sql/XXAP_GRNI_REP_PKG.pks apps
+xxap/12.0.0/patch/115/sql/XXAP_GRNI_REP_PKG.pkb apps
+--���������ű�(xnta & xntaap)
+xxap/12.0.0/patch/115/sql/XXAP_GRNI_REP_PKG_WRAPPER.pks
+xxap/12.0.0/patch/115/sql/XXAP_GRNI_REP_PKG_WRAPPER.pkb
+xxap/12.0.0/patch/115/publisher/XXAP1492_template_source.rtf
+xxap/12.0.0/patch/115/admin/US/XXAP1492_program.ldt--���ļ����漰���İ�������
+xxap/12.0.0/patch/115/admin/US/XXAP1492_concurrent_program.ldt
+xxap/12.0.0/patch/115/admin/US/XXAP1492_Master_program.ldt
+
+--ȱ��package
+xxap_utility_pkg.pks
+xxap_utility_pkg.pkb
+--�滻�ѷ����Ľ����ű�
+XXAP_GRNI_GTT.sql

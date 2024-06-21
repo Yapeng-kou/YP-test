@@ -1,0 +1,14 @@
+--XXPA4432
+--Loader program required for Project Attachment conversion
+--Iris Zhang
+xxpa/12.0.0/patch/115/sql/XXPA_PROJECT_ATTACHMENTS_STG.sql APPS
+xxpa/12.0.0/patch/115/sql/XXPA_PROJECT_ATTACHMENTS_SYN.sql 
+xxpa/12.0.0/patch/115/sql/XXCTQ_PA_PROJECT_ATTACHMENT_V.sql APPS
+xxpa/12.0.0/patch/115/sql/xxpa4432_project_attach_pkg.pks APPS
+xxpa/12.0.0/patch/115/sql/xxpa4432_project_attach_pkg.pkb APPS
+xxpa/12.0.0/patch/115/sql/XXCTQ_PROJ_ATTAC_RECON_PKG.pks APPS
+xxpa/12.0.0/patch/115/sql/XXCTQ_PROJ_ATTAC_RECON_PKG.pkb APPS
+xxpa/12.0.0/patch/115/admin/US/XXPA4432_conc_program.ldt $FND_TOP/patch/115/import/afcpprog.lct UPLOAD_MODE=REPLACE
+--
+xxctq/12.0.0/bin/XXCTQ_PA4432.prog 
+xxctq/12.0.0/bin/XXCTQ_PA4432_LOADER.ctl 

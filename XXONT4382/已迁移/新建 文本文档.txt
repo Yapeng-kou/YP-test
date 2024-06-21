@@ -1,0 +1,11 @@
+--RICE_ID:XXONT4382
+--NAME：Customer Acceptance to trigger Revenue Recognition
+--Jessie Wang
+--印度：Sowmya
+xxont/12.0.0/patch/115/sql/xxont_date_based_accept_pkg.pks apps
+xxont/12.0.0/patch/115/sql/xxont_date_based_accept_pkg.pkb apps
+xxont/12.0.0/patch/115/admin/US/XXONT4382_concurrent_program.ldt $FND_TOP/patch/115/import/afcpprog.lct UPLOAD_MODE=FORCE
+xxont/12.0.0/patch/115/admin/US/XXONT4382_ORDER_TYPE_lookup_type.ldt $FND_TOP/patch/115/import/aflvmlu.lct UPLOAD_MODE=FORCE
+xxont/12.0.0/patch/115/admin/US/XXONT_DATE_BASED_ACCEPTANCE_lookup_type.ldt $FND_TOP/patch/115/import/aflvmlu.lct UPLOAD_MODE=FORCE
+--未运行该脚本。070未找到该脚本作用
+xxau/12.0.0/patch/115/sql/XXAU_R122_PRE_COMPLIANCE_REPORT.sql apps
